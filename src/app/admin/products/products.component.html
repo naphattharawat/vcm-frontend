@@ -1,0 +1,76 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
+  <span class="breadcrumb-item active">รายการสินค้าทั้งหมด</span>
+</nav>
+<div class="clr-row">
+  <div class="clr-col-1">
+    <!-- <label for="">ค้นหา</label> -->
+    ค้นหา
+  </div>
+  <div class="clr-col-3">
+    <input type="text" (keyup)="search($event)" style="width: 100%" placeholder="พิมพ์แล้วกด Enter" name="query" id="query"
+      [(ngModel)]="query">
+  </div>
+  <div class="clr-col-8" style="text-align: right">
+    <button class="btn btn-success" routerLink="/admin/product-new">
+      <clr-icon shape="plus"></clr-icon>
+      เพิ่มสินค้า
+    </button>
+  </div>
+</div>
+
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column>Pictrue</clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ชื่อสินค้า
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Model
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Part No.
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      ราคาขาย
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      จำนวน
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    #
+  </clr-dg-column>
+  <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+  <clr-dg-row *ngFor="let p of products">
+    <clr-dg-cell></clr-dg-cell>
+    <clr-dg-cell>
+      <span class="p4">{{p.product_name_th}}</span>
+      <br>
+      <span class="p7">{{p.product_name_en}}</span>
+    </clr-dg-cell>
+    <clr-dg-cell>{{p.model }}</clr-dg-cell>
+    <clr-dg-cell>{{p.serial }}</clr-dg-cell>
+
+    <clr-dg-cell style="text-align: right;">{{p.price | number: '1.2'}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: right;">{{p.qty | number: '1.2'}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: center;">
+      <button class="btn btn-sm btn-danger wm-small-btn" (click)="showStockCard(p)">
+        <clr-icon shape="trash"></clr-icon>
+      </button>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}} รายการ
+    <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="totalProducts"></clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

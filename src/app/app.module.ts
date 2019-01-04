@@ -1,3 +1,4 @@
+import { AlertService } from './alert.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -9,12 +10,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginModule } from './login/login.module';
 import { ServiceManagerModule } from './service-manager/service-manager.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { CustomersModule } from './customers/customers.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
-
+import { environment } from '../environments/environment';;
+import { AdminModule } from './admin/admin.module';
+// import { AuthHttp } from 'angular2-jwt';
 export function tokenGetter() {
   return sessionStorage.getItem('token');
 }
@@ -22,7 +23,9 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    // ProductsComponent,
+    // AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -31,12 +34,15 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     AuthModule,
     LoginModule,
-    ServiceManagerModule,
-    CustomersModule,
+    AdminModule,
+    HttpClientModule,
+    AuthModule,
+    // CustomersModule,
   ],
   providers: [
-    { provide: 'API_URL', useValue: 'http://localhost:3000' },
     AuthGuard,
+    AlertService,
+    { provide: 'API_URL', useValue: environment.apiUrl },
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

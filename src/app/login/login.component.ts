@@ -11,8 +11,6 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
-  userTypeId: any;
-  userTypes: any = [{ type: 'ผู้ใช้งานทั่วไป', id: 1 }, { type: 'ผู้ดูแลระบบ', id: 2 }];
   errorMessage: string = null;
   isError = false;
 
@@ -22,36 +20,30 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    console.log(this.userTypeId);
-    if (this.username && this.password && this.userTypeId) {
-      if (this.userTypeId == 1) {
-        this.loginService.doCustomerLogin(this.username, this.password)
-          .subscribe((data: any) => {
-            if (data.ok) {
-              sessionStorage.setItem('token', data.token);
+    if (this.username && this.password) {
+      this.loginService.doCustomerLogin(this.username, this.password)
+        .subscribe((data: any) => {
+          if (data.ok) {
+            console.log(data.token);
 
-              if (this.userTypeId === 2) {
-                this.route.navigate(['/sm']);
-              } else {
-                this.route.navigate(['/customers']);
-              }
-
-            } else {
-              this.isError = true;
-              this.errorMessage = data.error;
-            }
-          }, error => {
+            sessionStorage.setItem('token', data.token);
+            this.route.navigate(['/admin/products']);
+          } else {
             this.isError = true;
-            this.errorMessage = 'เกิดปัญหาในการเชื่อมต่อ';
-          });
-      } else {
-        console.log('Admin login')
-      }
-    } else {
-      this.isError = true;
-      this.errorMessage = 'กรุณาระบุชื่อผู้ใช้งาน หรือ รหัสผ่าน'
+            this.errorMessage = data.error;
+          }
+        }, error => {
+          this.isError = true;
+          this.errorMessage = 'เกิดปัญหาในการเชื่อมต่อ';
+        });
+
+    }
+  }
+
+  enterLogin(e: any) {
+    if (e.keyCode === 13) {
+      this.doLogin();
     }
 
   }
-
 }
