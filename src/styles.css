@@ -35,3 +35,12 @@
 .breadcrumb-item.active {
     color: #636c72;
 }
+
+.required{
+    color: red;
+}
+.required:after{
+    content:"*";
+    color: red;
+    font-size: 0.9rem;
+}
