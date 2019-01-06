@@ -2,7 +2,7 @@ import { AlertService } from './../../alert.service';
 import { Component, OnInit } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ProductsService } from '../products.service';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -63,6 +63,22 @@ export class ProductsComponent implements OnInit {
         this.alertService.error(error);
       }
 
+    }
+  }
+
+  async delete(productId) {
+    try {
+      this.alertService.confirm('คุณต้องการที่จะลบ ใช่หรือไม่?').then(async (result) => {
+        if (result.value) {
+          await this.productService.delete(productId);
+          const idx = _.findIndex(this.products);
+          if (idx > -1) {
+            this.products.splice(idx, 1);
+          }
+        }
+      });
+    } catch (error) {
+      this.alertService.error(error);
     }
   }
 }

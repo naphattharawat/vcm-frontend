@@ -32,6 +32,11 @@ export class ProductsService {
     return resp;
   }
 
+  async info(productId) {
+    const resp = await this.http.get(`${this.url}/products/info?productId=${productId}`).toPromise();
+    return resp;
+  }
+
   uploadFile(productId: string, files: Array<File>, fileName: string = null) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
@@ -65,4 +70,18 @@ export class ProductsService {
     }).toPromise();
     return resp;
   }
+
+  async update(productId, data) {
+    const resp = await this.http.put(`${this.url}/products/save`, {
+      data: data,
+      productId: productId
+    }).toPromise();
+    return resp;
+  }
+
+  async delete(productId) {
+    const resp = await this.http.delete(`${this.url}/products?productId=${productId}`).toPromise();
+    return resp;
+  }
+
 }

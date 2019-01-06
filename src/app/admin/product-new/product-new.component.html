@@ -1,7 +1,7 @@
 <nav class="breadcrumb">
   <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
   <a class="breadcrumb-item" href="javascript://" routerLink="/admin/products">รายการสินค้า</a>
-  <span class="breadcrumb-item active">เพิ่มสินค้า</span>
+  <span class="breadcrumb-item active">{{title}}</span>
 </nav>
 
 <form clrForm>
@@ -9,78 +9,75 @@
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4 required"> ชื่อสินค้า(ภาษาไทย)</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="productNameTH" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="productNameTH" name="productNameTH" style="width: 100%"
           placeholder="ชื่อสินค้า(ภาษาไทย)" required />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4 required">ชื่อสินค้า(ภาษาอังกฤษ)</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="productNameEN" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="productNameEN" name="productNameEN" style="width: 100%"
           placeholder="ชื่อสินค้า(ภาษาอังกฤษ)" required />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4">รุ่น</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="model" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="model" name="model" style="width: 100%"
           placeholder="รุ่น" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4">หมายเลข</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="serial" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="serial" name="serial" style="width: 100%"
           placeholder="หมายเลข" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4">Keywords</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="keyword" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="keyword" name="keyword" style="width: 100%"
           placeholder="Keywords" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4 required">หน่วย</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="unit" name="example" style="width: 100%"
-          placeholder="หน่วย" />
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="unit" name="unit" style="width: 100%" placeholder="หน่วย" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4">ต้นทุน(สกุลเงินต่างประเทศ)</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="costOther" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="costOther" name="costOther" style="width: 100%"
           placeholder="ต้นทุน(สกุลเงินต่างประเทศ)" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4">สกุลเงิน</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="costOtherCurrency" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="costOtherCurrency" name="costOtherCurrency" style="width: 100%"
           placeholder="สกุลเงิน" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4 required">ต้นทุน(บาท)</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="cost" name="example" style="width: 100%"
-          placeholder="ต้นทุน(บาท)" />
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="cost" name="cost" style="width: 100%" placeholder="ต้นทุน(บาท)" />
       </clr-input-container>
     </div>
     <div class="clr-col-6">
       <clr-input-container>
         <label class="clr-col-md-4 required">ราคาขาย</label>
-        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="price" name="example" style="width: 100%"
+        <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="price" name="price" style="width: 100%"
           placeholder="ราคาขาย" />
       </clr-input-container>
     </div>
     <div class="clr-col-12">
       <clr-input-container>
         <label class="clr-col-md-2">หมายเหตุ</label>
-        <input class="clr-col-md-9" clrInput type="text" [(ngModel)]="note" name="example" style="width: 100%"
-          placeholder="หมายเหตุ" />
+        <input class="clr-col-md-9" clrInput type="text" [(ngModel)]="note" name="note" style="width: 100%" placeholder="หมายเหตุ" />
       </clr-input-container>
     </div>
     <div class="clr-col-12">
@@ -89,6 +86,8 @@
         <div class="clr-col-2">รูปภาพ</div>
         <div class="clr-col-10">
           <input type="file" accept="image/*" (change)="onFileChanged($event)">
+          <p *ngIf="productId">เลือกรูปภาพเมื่อต้องการแก้ไขรูปภาพ</p>
+
         </div>
       </div>
     </div>

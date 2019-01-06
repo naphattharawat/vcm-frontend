@@ -63,7 +63,11 @@
     <clr-dg-cell style="text-align: right;">{{p.price | number: '1.2'}}</clr-dg-cell>
     <clr-dg-cell style="text-align: right;">{{p.qty | number: '1.2'}}</clr-dg-cell>
     <clr-dg-cell style="text-align: center;">
-      <button class="btn btn-sm btn-danger wm-small-btn" (click)="showStockCard(p)">
+      <button class="btn btn-sm btn-success " [routerLink]="['/admin/product-new']" [queryParams]="{productId: p.product_id}"
+        routerLinkActive="router-link-active">
+        <clr-icon shape="note"></clr-icon>
+      </button>
+      <button class="btn btn-sm btn-danger " (click)="delete(p.product_id)">
         <clr-icon shape="trash"></clr-icon>
       </button>
     </clr-dg-cell>
