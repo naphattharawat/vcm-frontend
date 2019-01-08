@@ -2,7 +2,7 @@
   <header class="header">
     <div class="branding">
       <a href="javascript://" class="nav-link">
-        <img src="./assets/images/moph_logo.png" alt="moph_logo" style="width: 64px; padding-right: 10px;">
+        <img src="./assets/images/vcm.png" style="width: 64px; padding-right: 10px;">
         <span class="title">ระบบจัดการสินค้าและบริการ VCM</span>
       </a>
     </div>
@@ -35,8 +35,12 @@
     </nav> -->
     <clr-vertical-nav [clrVerticalNavCollapsible]="collapsible" [(clrVerticalNavCollapsed)]="collapse">
       <a clrVerticalNavLink routerLink="/admin/products" title="รายการสินค้า" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="store" class="has-badge is-solid"></clr-icon>
+        <clr-icon clrVerticalNavIcon shape="store" class=" is-solid"></clr-icon>
         รายการสินค้า
+      </a>
+      <a clrVerticalNavLink routerLink="/admin/machines" title="รายการสินค้า" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="printer" class=" is-solid"></clr-icon>
+        รายการเครื่องพิมพ์
       </a>
 
       <!-- <clr-vertical-nav-group routerLinkActive="active">

@@ -1,3 +1,4 @@
+import { MachineNewComponent } from './machine-new/machine-new.component';
 import { ProductsComponent } from './products/products.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,7 +13,9 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
-      { path: 'product-new', component: ProductNewComponent }
+      { path: 'product-new', component: ProductNewComponent },
+      { path: 'machines', component: MachineNewComponent },
+      { path: 'machine-new', component: MachineNewComponent },
     ]
   }
 ];

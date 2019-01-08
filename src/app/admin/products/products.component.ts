@@ -1,5 +1,5 @@
 import { AlertService } from './../../alert.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
 import { ProductsService } from '../products.service';
 import * as _ from 'lodash';
@@ -12,11 +12,12 @@ export class ProductsComponent implements OnInit {
 
   products = [];
   totalProducts: any;
-  perPage = 20;
+  perPage = 10;
   query = '';
   constructor(
     private productService: ProductsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    @Inject('API_URL') private url: string,
   ) { }
 
   ngOnInit() {
@@ -37,6 +38,13 @@ export class ProductsComponent implements OnInit {
       // this.modalLoading.hide();
       if (rs.ok) {
         this.products = rs.rows;
+        for (const p of this.products) {
+          if (p.picture != null && p.picture != '') {
+            p.picture = this.url + '/' + p.picture;
+          } else {
+            p.picture = null;
+          }
+        }
         this.totalProducts = rs.total;
       } else {
         this.alertService.error(rs.error);

@@ -51,7 +51,10 @@
   </clr-dg-column>
   <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
   <clr-dg-row *ngFor="let p of products">
-    <clr-dg-cell></clr-dg-cell>
+    <clr-dg-cell>
+      <img *ngIf="p.picture != null" [src]="p.picture" width="100px">
+      <img *ngIf="p.picture == null" src="assets/images/vcm.png" width="100px">
+    </clr-dg-cell>
     <clr-dg-cell>
       <span class="p4">{{p.product_name_th}}</span>
       <br>

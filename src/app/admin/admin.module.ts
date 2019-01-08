@@ -8,6 +8,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { ProductNewComponent } from './product-new/product-new.component';
+import { MachinesComponent } from './machines/machines.component';
+import { MachineNewComponent } from './machine-new/machine-new.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { ProductNewComponent } from './product-new/product-new.component';
   declarations: [
     LayoutComponent,
     ProductsComponent,
-    ProductNewComponent
+    ProductNewComponent,
+    MachinesComponent,
+    MachineNewComponent
   ],
   providers: [
     ProductsService]
