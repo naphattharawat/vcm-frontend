@@ -52,6 +52,12 @@
     background-color: red;
     color:black;
 }
+.approve-text {
+    color:green;
+}
+.cancel-text {
+    color:red;
+}
 
 .datagrid .datagrid-row-actions clr-icon {
     height: 14px;
@@ -71,4 +77,24 @@
 .datagrid-cell .btn.btn-link {
     margin: 0;
     padding: 0;
+}
+.container{
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.newLine {
+    /* background-color: #DFF0D0; */
+    border: 2px solid red;
+    /* position:fixed; */
+  }
+
+  .grid-order .datagrid .datagrid-cell {
+    padding: 5px 10px 5px 10px;
+    line-height: 25px;
+}
+
+.datagrid .datagrid-column .datagrid-filter-toggle, .datagrid .datagrid-head .datagrid-row-actions .datagrid-filter-toggle {
+    display: none;
 }

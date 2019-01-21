@@ -22,25 +22,39 @@
   <clr-dg-column>วันที่รับสินค้า</clr-dg-column>
   <clr-dg-column>บริษัท</clr-dg-column>
   <clr-dg-column>ราคา(บาท)</clr-dg-column>
-  <clr-dg-column>จำนวน</clr-dg-column>
-  <clr-dg-column>#</clr-dg-column>
+  <!-- <clr-dg-column>จำนวน</clr-dg-column> -->
+  <clr-dg-column>สถานะ</clr-dg-column>
 
   <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
-  <clr-dg-row *ngFor="let r of receives" [ngClass]="{ 'cancel-status': r.is_deleted === 'Y','approve-status': r.is_approved === 'Y'}">
+  <!-- <clr-dg-row *ngFor="let r of receives"> -->
+  <clr-dg-row *ngFor="let r of receives" [ngClass]="{ 'cancel-text': r.is_deleted === 'Y','approve-text': r.is_approved === 'Y'}">
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="approve(r.receive_id)" [disabled]="r.is_approved == 'Y' || r.is_deleted == 'Y'">
+            <clr-icon shape="check" style="color:green"></clr-icon>
+            ยืนยัน</button>
+      <button class="action-item"  [disabled]="r.is_approved == 'Y' || r.is_deleted == 'Y'">
+            <clr-icon shape="note"></clr-icon>
+            แก้ไข</button>
+      <button class="action-item" (click)="delete(r.receive_id)"  [disabled]="r.is_approved == 'Y' || r.is_deleted == 'Y'">
+              <clr-icon shape="trash"></clr-icon>ลบ</button>
+    </clr-dg-action-overflow>
     <clr-dg-cell>{{r.receive_code}}</clr-dg-cell>
     <clr-dg-cell>{{r.date | toThDate}}</clr-dg-cell>
     <clr-dg-cell>{{r.supplier_name}}</clr-dg-cell>
     <clr-dg-cell style="text-align: right">{{r.cost | number: '1.2-2'}}</clr-dg-cell>
-    <clr-dg-cell style="text-align: right">{{r.qty}}</clr-dg-cell>
+    <!-- <clr-dg-cell style="text-align: right">{{r.qty}}</clr-dg-cell> -->
     <app-receive-detail *clrIfExpanded [receiveId]="r.receive_id" ngProjectAs="clr-dg-row-detail"></app-receive-detail>
     <clr-dg-cell style="text-align: center;">
-      <button class="btn btn-sm btn-success " [routerLink]="['/admin/receive-new']" [queryParams]="{receiveId: r.receive_id}"
-        routerLinkActive="router-link-active">
+      <span *ngIf="r.is_approved == 'Y' && r.is_deleted == 'N'" style="color:green">  <clr-icon shape="check"></clr-icon>ยืนยัน</span>
+      <span *ngIf="r.is_deleted == 'Y'" style="color:red">  <clr-icon shape="trash"></clr-icon>ลบ</span>
+      <!-- <div class="btn-group"> -->
+      <!-- <button class="btn btn-sm btn-success " [routerLink]="['/admin/receive-new']" [queryParams]="{receiveId: r.receive_id}" routerLinkActive="router-link-active">
         <clr-icon shape="note"></clr-icon>
-      </button>
-      <button class="btn btn-sm btn-danger " (click)="delete(r.receive_id)">
+      </button> -->
+      <!-- <button class="btn btn-sm btn-danger " (click)="delete(r.receive_id)">
         <clr-icon shape="trash"></clr-icon>
-      </button>
+      </button> -->
+      <!-- </div> -->
     </clr-dg-cell>
   </clr-dg-row>
 

@@ -1,3 +1,116 @@
-<p>
-  receive-new works!
-</p>
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin/receives">รายการรับสินค้า</a>
+  <span class="breadcrumb-item active">รับสินค้า</span>
+</nav>
+
+
+<div class="container">
+    <div class="clr-row">
+        <div class="clr-col-md-2">
+          ผู้จำหน่าย
+        </div>
+        <div class="clr-col-md-10">
+          <app-search-products style="width: 100%" #searchProduct (onSelect)="selectProduct($event)"></app-search-products>
+        </div>
+      </div>
+      
+</div>
+
+<!-- 
+<table style="width:90%;margin-left:5%" cellpadding="5">
+  <tr>
+    <td width="20%">สินค้า</td>
+    <td width="80%">
+      <app-search-products #searchProduct (onSelect)="selectProduct($event)"></app-search-products>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">ผู้จำหน่าย</td>
+    <td width="80%">
+      <app-search-products style="width: 100%" #searchProduct (onSelect)="selectProduct($event)"></app-search-products>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">จำนวน</td>
+    <td width="80%">
+      <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">ต้นทุน (สกุลเงินต่างประเทศ)</td>
+    <td width="80%">
+      <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">สกุลเงิน</td>
+    <td width="80%">
+      <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">ต้นทุน (บาท)</td>
+    <td width="80%">
+      <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">ราคาขาย</td>
+    <td width="80%">
+      <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"></td>
+    <td width="80%">
+      <button class="btn btn-success">บันทึก</button>
+    </td>
+  </tr>
+</table> -->
+
+
+<clr-datagrid style="position: relative;">
+    <clr-dg-column>ชื่อสินค้า</clr-dg-column>
+    <clr-dg-column>จำนวน</clr-dg-column>
+    <clr-dg-column>ต้นทุน(สกุลเงินต่างประเทศ)</clr-dg-column>
+    <clr-dg-column>สกุลเงิน</clr-dg-column>
+    <clr-dg-column>ต้นทุน(บาท)</clr-dg-column>
+    <clr-dg-column>ราคาขาย(บาท)</clr-dg-column>
+    <clr-dg-column></clr-dg-column>
+    <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+    <clr-dg-row class="newLine">
+        <clr-dg-cell>
+            <app-search-products style="width: 100%" #searchProduct (onSelect)="selectProduct($event)"></app-search-products>
+        </clr-dg-cell>
+        <clr-dg-cell>
+            <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+        </clr-dg-cell>
+        <clr-dg-cell>
+            <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+        </clr-dg-cell>
+        <clr-dg-cell>
+            <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+        </clr-dg-cell>
+        <clr-dg-cell>
+            <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+        </clr-dg-cell>
+        <clr-dg-cell>
+            <input type="text" [(ngModel)]="model" name="model" style="width: 100%" placeholder="0" />
+        </clr-dg-cell>
+        <clr-dg-cell>
+           <button class="btn btn-success btn-sm" (click)="addProduct()">
+             <clr-icon shape="floppy"></clr-icon>
+           </button>
+        </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-row *ngFor="let p of products">
+      <clr-dg-cell>
+        <span>{{p.product_name_th}}</span>
+        <span>{{p.product_name_en}}</span>
+      </clr-dg-cell>
+      <clr-dg-cell></clr-dg-cell>
+      <clr-dg-cell></clr-dg-cell>
+      <clr-dg-cell></clr-dg-cell>
+    </clr-dg-row>
+  </clr-datagrid>

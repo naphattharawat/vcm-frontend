@@ -15,7 +15,7 @@ import { ReceivesComponent } from './receives/receives.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { ReceiveNewComponent } from './receive-new/receive-new.component';
 import { DatagridModule } from './datagrid/datagrid.module';
-
+import { DirectivesModule } from './directives/directives.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +23,8 @@ import { DatagridModule } from './datagrid/datagrid.module';
     ClarityModule,
     AdminRoutingModule,
     PipeModule,
-    DatagridModule
+    DatagridModule,
+    DirectivesModule
   ],
   declarations: [
     LayoutComponent,
