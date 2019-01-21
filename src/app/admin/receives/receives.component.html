@@ -1,0 +1,51 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
+  <span class="breadcrumb-item active">รายการรับสินค้า</span>
+</nav>
+
+<div class="clr-row">
+  <div class="clr-col-md-1">
+    <button class="btn btn-success btn-sm" routerLink="/admin/receive-new">
+      <clr-icon shape="plus"></clr-icon>
+      รับสินค้า
+    </button>
+  </div>
+  <div class="clr-col-md-6" style="padding-top: 5px;">
+    <label for="">ค้นหา</label>
+    <input type="text" (keyup)="search($event)" name="query" [(ngModel)]="query" placeholder="พิมพ์แล้วกด Enter" style="width: 400px;">
+  </div>
+</div>
+
+
+<clr-datagrid (clrDgRefresh)="refresh($event)">
+  <clr-dg-column>รหัสใบรับ</clr-dg-column>
+  <clr-dg-column>วันที่รับสินค้า</clr-dg-column>
+  <clr-dg-column>บริษัท</clr-dg-column>
+  <clr-dg-column>ราคา(บาท)</clr-dg-column>
+  <clr-dg-column>จำนวน</clr-dg-column>
+  <clr-dg-column>#</clr-dg-column>
+
+  <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+  <clr-dg-row *ngFor="let r of receives" [ngClass]="{ 'cancel-status': r.is_deleted === 'Y','approve-status': r.is_approved === 'Y'}">
+    <clr-dg-cell>{{r.receive_code}}</clr-dg-cell>
+    <clr-dg-cell>{{r.date | toThDate}}</clr-dg-cell>
+    <clr-dg-cell>{{r.supplier_name}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: right">{{r.cost | number: '1.2-2'}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: right">{{r.qty}}</clr-dg-cell>
+    <app-receive-detail *clrIfExpanded [receiveId]="r.receive_id" ngProjectAs="clr-dg-row-detail"></app-receive-detail>
+    <clr-dg-cell style="text-align: center;">
+      <button class="btn btn-sm btn-success " [routerLink]="['/admin/receive-new']" [queryParams]="{receiveId: r.receive_id}"
+        routerLinkActive="router-link-active">
+        <clr-icon shape="note"></clr-icon>
+      </button>
+      <button class="btn btn-sm btn-danger " (click)="delete(r.receive_id)">
+        <clr-icon shape="trash"></clr-icon>
+      </button>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}} รายการ
+    <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="totalReceive"></clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

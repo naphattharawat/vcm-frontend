@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginModule } from './login/login.module';
-import { ServiceManagerModule } from './service-manager/service-manager.module';
+// import { ServiceManagerModule } from './service-manager/service-manager.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth-guard.service';
@@ -36,7 +36,7 @@ export function tokenGetter() {
     LoginModule,
     AdminModule,
     HttpClientModule,
-    AuthModule,
+    AuthModule
     // CustomersModule,
   ],
   providers: [

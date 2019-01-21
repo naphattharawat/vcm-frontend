@@ -44,3 +44,31 @@
     color: red;
     font-size: 0.9rem;
 }
+.approve-status {
+    background-color: #DFF0D0;
+    color:black;
+}
+.cancel-status {
+    background-color: red;
+    color:black;
+}
+
+.datagrid .datagrid-row-actions clr-icon {
+    height: 14px;
+    vertical-align: middle;
+}
+
+.grid-order .datagrid .datagrid-cell {
+    padding: 0px 10px 0px 10px;
+    line-height: 10px;
+}
+
+.datagrid .datagrid-row-actions clr-icon {
+    height: 14px;
+    vertical-align: middle;
+}
+
+.datagrid-cell .btn.btn-link {
+    margin: 0;
+    padding: 0;
+}

@@ -10,22 +10,33 @@ import { ClarityModule } from '@clr/angular';
 import { ProductNewComponent } from './product-new/product-new.component';
 import { MachinesComponent } from './machines/machines.component';
 import { MachineNewComponent } from './machine-new/machine-new.component';
+import { MachinesService } from './machines.service';
+import { ReceivesComponent } from './receives/receives.component';
+import { PipeModule } from '../pipe/pipe.module';
+import { ReceiveNewComponent } from './receive-new/receive-new.component';
+import { DatagridModule } from './datagrid/datagrid.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ClarityModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    PipeModule,
+    DatagridModule
   ],
   declarations: [
     LayoutComponent,
     ProductsComponent,
     ProductNewComponent,
     MachinesComponent,
-    MachineNewComponent
+    MachineNewComponent,
+    ReceivesComponent,
+    ReceiveNewComponent
   ],
   providers: [
-    ProductsService]
+    ProductsService,
+    MachinesService
+  ]
 })
 export class AdminModule { }

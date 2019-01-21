@@ -1,0 +1,14 @@
+<clr-datagrid>
+  <clr-dg-column>ชื่อสินค้า</clr-dg-column>
+  <clr-dg-column></clr-dg-column>
+  <clr-dg-column>ราคา(บาท)</clr-dg-column>
+  <clr-dg-column>จำนวน</clr-dg-column>
+
+  <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+  <clr-dg-row *ngFor="let r of products">
+    <clr-dg-cell>{{r.product_name_en}}</clr-dg-cell>
+    <clr-dg-cell>{{r.product_name_th}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: right">{{r.cost | number: '1.2-2'}}</clr-dg-cell>
+    <clr-dg-cell style="text-align: right">{{r.qty}}</clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>

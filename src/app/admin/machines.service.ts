@@ -1,10 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
+@Injectable({
+  providedIn: 'root'
+})
+export class MachinesService {
 
-
-@Injectable()
-export class ProductsService {
   token: any;
   constructor(
     @Inject('API_URL') private url: string,
@@ -12,10 +13,8 @@ export class ProductsService {
   ) {
     this.token = sessionStorage.getItem('token');
   }
-
-
   async search(query: any, limit: number = 10, offset: number = 0) {
-    const resp = await this.http.post(`${this.url}/products/search`, {
+    const resp = await this.http.post(`${this.url}/machines/search`, {
       limit: limit,
       offset: offset,
       query: query
@@ -24,26 +23,26 @@ export class ProductsService {
   }
 
   async all(limit: number = 10, offset: number = 0) {
-    const resp = await this.http.post(`${this.url}/products`, {
+    const resp = await this.http.post(`${this.url}/machines`, {
       limit: limit,
       offset: offset
     }).toPromise();
     return resp;
   }
 
-  async info(productId) {
-    const resp = await this.http.get(`${this.url}/products/info?productId=${productId}`).toPromise();
+  async info(machineId) {
+    const resp = await this.http.get(`${this.url}/machines/info?machineId=${machineId}`).toPromise();
     return resp;
   }
 
-  uploadFile(productId: string, files: Array<File>, fileName: string = null) {
+  uploadFile(machineId: string, files: Array<File>, fileName: string = null) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
       for (let i = 0; i < files.length; i++) {
         formData.append('files[]', files[i], fileName);
       }
-      formData.append('productId', productId);
+      formData.append('machineId', machineId);
       formData.append('fileName', fileName);
       formData.append('token', this.token);
 
@@ -57,29 +56,29 @@ export class ProductsService {
         }
       };
 
-      const url = `${this.url}/products/image?token=${this.token}`;
+      const url = `${this.url}/machines/image?token=${this.token}`;
       xhr.open('POST', url, true);
       xhr.send(formData);
     });
   }
 
   async save(data) {
-    const resp = await this.http.post(`${this.url}/products/save`, {
+    const resp = await this.http.post(`${this.url}/machines/save`, {
       data: data
     }).toPromise();
     return resp;
   }
 
-  async update(productId, data) {
-    const resp = await this.http.put(`${this.url}/products/save`, {
+  async update(machineId, data) {
+    const resp = await this.http.put(`${this.url}/machines/save`, {
       data: data,
-      productId: productId
+      machineId: machineId
     }).toPromise();
     return resp;
   }
 
-  async delete(productId) {
-    const resp = await this.http.delete(`${this.url}/products?productId=${productId}`).toPromise();
+  async delete(machineId) {
+    const resp = await this.http.delete(`${this.url}/machines?machineId=${machineId}`).toPromise();
     return resp;
   }
 
