@@ -1,0 +1,10 @@
+<input type="text" [value]="query" (keyup)="clearSelected($event)" style="width: 100%;" placeholder="ค้นหาผู้จำหน่าย..." 
+agxTypeahead 
+[taUrl]="searchUrl"
+taApi="http" 
+[taItemTpl]="itemTpl"
+(taSelected)="handleResultSelected($event)">
+
+<ng-template #itemTpl let-result style="width: 100%">
+  <strong>{{ result.result.supplier_name }}</strong>
+</ng-template>

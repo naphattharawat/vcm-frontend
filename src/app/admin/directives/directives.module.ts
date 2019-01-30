@@ -4,6 +4,7 @@ import { SearchProductsComponent } from './search-products/search-products.compo
 import { ClarityModule } from '@clr/angular';
 import { FormsModule } from '@angular/forms';
 import { AgxTypeaheadModule } from '@siteslave/agx-typeahead';
+import { SearchLabelerComponent } from './search-labeler/search-labeler.component';
 
 @NgModule({
   imports: [
@@ -13,10 +14,12 @@ import { AgxTypeaheadModule } from '@siteslave/agx-typeahead';
     AgxTypeaheadModule
   ],
   declarations: [
-    SearchProductsComponent
+    SearchProductsComponent,
+    SearchLabelerComponent
   ],
   exports:[
-    SearchProductsComponent
+    SearchProductsComponent,
+    SearchLabelerComponent
   ]
 })
 export class DirectivesModule { }

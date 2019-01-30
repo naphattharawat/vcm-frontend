@@ -64,14 +64,14 @@
     vertical-align: middle;
 }
 
-.grid-order .datagrid .datagrid-cell {
-    padding: 0px 10px 0px 10px;
-    line-height: 10px;
-}
 
 .datagrid .datagrid-row-actions clr-icon {
     height: 14px;
     vertical-align: middle;
+}
+
+.typeahead-backdrop {
+    position: relative !important;
 }
 
 .datagrid-cell .btn.btn-link {
@@ -98,3 +98,8 @@
 .datagrid .datagrid-column .datagrid-filter-toggle, .datagrid .datagrid-head .datagrid-row-actions .datagrid-filter-toggle {
     display: none;
 }
+
+/* clr-datagrid {
+    position: relative;
+    z-index:1
+} */
