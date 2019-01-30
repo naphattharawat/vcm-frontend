@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import * as _ from 'lodash';
+import { AlertService } from 'src/app/alert.service';
 @Component({
   selector: 'app-receive-new',
   templateUrl: './receive-new.component.html',
@@ -25,7 +26,10 @@ export class ReceiveNewComponent implements OnInit {
 
   @ViewChild('searchProduct') public searchProduct: any;
   @ViewChild('searchLabeler') public searchLabeler: any;
-  constructor() { }
+  constructor(
+    private alertService: AlertService,
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -106,4 +110,18 @@ export class ReceiveNewComponent implements OnInit {
       this.products[idx].price = value;
     }
   }
+
+  removeProduct(productId) {
+    this.alertService.confirm('คุณต้องการที่จะลบ ใช่หรือไม่?')
+      .then((result) => {
+        if (result.value) {
+          const idx: any = _.findIndex(this.products, { 'product_id': productId });
+          if (idx > -1) {
+            this.products.splice(idx, 1);
+          }
+        }
+      }).catch((err) => {
+      });
+  }
+
 }

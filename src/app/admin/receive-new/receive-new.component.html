@@ -125,6 +125,10 @@
     <clr-dg-cell>
          <input type="text" #price (keyup)="editPrice(p.product_id, price.value)" style="width: 100%" [value]="p.price" />
     </clr-dg-cell>
-      <clr-dg-cell></clr-dg-cell>
+    <clr-dg-cell>
+      <button class="btn btn-danger btn-sm" (click)="removeProduct(p.product_id)">
+        <clr-icon shape="trash"></clr-icon>
+      </button>
+   </clr-dg-cell>
     </clr-dg-row>
   </clr-datagrid>
