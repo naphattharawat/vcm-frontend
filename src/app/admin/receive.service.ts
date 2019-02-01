@@ -41,4 +41,13 @@ export class ReceiveService {
     return resp;
   }
 
+  async save(head, detail) {
+    const resp = await this.http.post(`${this.url}/receives`,
+      {
+        head: head,
+        detail: detail
+      }).toPromise();
+    return resp;
+  }
+
 }

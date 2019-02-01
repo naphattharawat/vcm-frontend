@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { AlertService } from 'src/app/alert.service';
+import { ReceiveService } from '../receive.service';
 @Component({
   selector: 'app-receive-new',
   templateUrl: './receive-new.component.html',
@@ -28,6 +29,7 @@ export class ReceiveNewComponent implements OnInit {
   @ViewChild('searchLabeler') public searchLabeler: any;
   constructor(
     private alertService: AlertService,
+    private receiveService: ReceiveService
   ) {
   }
 
@@ -59,21 +61,23 @@ export class ReceiveNewComponent implements OnInit {
   }
 
   addProduct() {
-    const obj = {
-      product_id: this.selectProductId,
-      product_name_th: this.selectProductNameTH,
-      product_name_en: this.selectProductNameEN,
-      qty: this.qty,
-      cost_other: this.costEN,
-      cost_other_currency: this.currency,
-      cost: this.cost,
-      price: this.price
-
+    const idx = _.findIndex(this.products, { 'product_id': this.selectProductId });
+    if (idx > -1) {
+      this.alertService.error('รายการซ้ำ กรุณาแก้รายการเดิม');
+    } else {
+      const obj = {
+        product_id: this.selectProductId,
+        product_name_th: this.selectProductNameTH,
+        product_name_en: this.selectProductNameEN,
+        qty: this.qty || 0,
+        cost_other: this.costEN || 0,
+        cost_other_currency: this.currency || '',
+        cost: this.cost || 0,
+        price: this.price || 0
+      };
+      this.products.push(obj);
+      this.clearInput();
     }
-    this.products.push(obj);
-    this.clearInput();
-    console.log(this.products);
-
   }
 
   editQty(productId, value) {
@@ -124,4 +128,20 @@ export class ReceiveNewComponent implements OnInit {
       });
   }
 
+  enter(e: any) {
+    if (e.keyCode === 13 && (this.qty && this.qty > 0)) {
+      this.addProduct();
+    }
+  }
+
+  async save() {
+    try {
+      const head = {
+        supplier_id: this.selectLabeler
+      };
+      await this.receiveService.save(head, this.products);
+    } catch (error) {
+      this.alertService.error(error);
+    }
+  }
 }

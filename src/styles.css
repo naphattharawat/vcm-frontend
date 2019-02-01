@@ -99,7 +99,7 @@
     display: none;
 }
 
-/* clr-datagrid {
-    position: relative;
+clr-datagrid {
+    position: absolute;
     z-index:1
-} */
+}
