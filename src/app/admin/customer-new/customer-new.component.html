@@ -1,0 +1,113 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin/products">รายการข้อมูลลูกค้า</a>
+  <span class="breadcrumb-item active">{{title}}</span>
+</nav>
+
+<div class="card">
+  <div class="card-header">
+    ชื่อที่อยู่
+  </div>
+  <div class="card-block">
+    <div class="card-text">
+      <form clrForm>
+        <div class="clr-row">
+          <div class="clr-col-6">
+            <clr-input-container>
+              <label class="clr-col-md-4 required"> ชื่อลูกค้า</label>
+              <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="customerName" name="customerName"
+                style="width: 100%" placeholder="ชื่อลูกค้า" required />
+            </clr-input-container>
+          </div>
+          <div class="clr-col-12">
+            <clr-input-container>
+              <label class="clr-col-md-2">ที่อยู่ลูกค้า</label>
+              <input class="clr-col-md-9" clrInput type="text" [(ngModel)]="customerAddress" name="customerAddress"
+                style="width: 100%" placeholder="ที่อยู่ลูกค้า" />
+            </clr-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+    เบอร์โทรศัพท์
+  </div>
+  <div class="card-block">
+    <div class="card-text">
+      <form clrForm>
+        <div class="clr-row">
+          <label class="clr-col-md-2"> เบอร์โทร </label>
+          <div *ngFor="let t of telephones;let idx = index" class="clr-col-md-2">
+            <input type="text" (keyup)="changeTel($event,idx)" name="tel{{idx}}" id="tel{{idx}}" [value]="t.tel"
+              style="width: 90%;" />
+            <clr-icon shape="trash" (click)="removeTel(idx)" class=" is-solid"></clr-icon>
+          </div>
+          <button (click)=" addTel()" class="btn btn-sm btn-success">
+            <clr-icon shape="plus" class=" is-solid"></clr-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    เบอร์แฟกซ์
+  </div>
+  <div class="card-block">
+    <div class="card-text">
+      <form clrForm>
+        <div class="clr-row">
+          <label class="clr-col-md-2"> เบอร์แฟกซ์ </label>
+          <div *ngFor="let t of faxs;let idx = index" class="clr-col-md-2">
+            <input type="text" (keyup)="changeFax($event,idx)" name="fax{{idx}}" id="fax{{idx}}" [value]="t.fax"
+              style="width: 90%;" />
+            <clr-icon shape="trash" (click)="removeFax(idx)" class=" is-solid"></clr-icon>
+          </div>
+          <button (click)=" addFax()" class="btn btn-sm btn-success">
+            <clr-icon shape="plus" class=" is-solid"></clr-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    ผู้ติดต่อ
+  </div>
+  <div class="card-block">
+    <div class="card-text">
+      <form clrForm>
+        <div class="clr-row">
+          <div *ngFor="let t of contacts;let idx = index" class="clr-col-md-12">
+
+            <label class="clr-col-md-1"> ชื่อผู้ติดต่อ </label>
+            <input type="text" class="clr-col-md-4" (keyup)="changeContactName($event,idx)" name="contactName{{idx}}"
+              id="contactName{{idx}}" [value]="t.contact_name" style="width: 90%;" />
+            <label class="clr-col-md-1"> เบอร์โทร </label>
+            <input type="text" class="clr-col-md-4" (keyup)="changeContactTel($event,idx)" name="contactTel{{idx}}"
+              id="contactTel{{idx}}" [value]="t.contact_tel" style="width: 90%;" />
+            <clr-icon shape="trash" (click)="removeContact(idx)" class=" is-solid"></clr-icon>
+          </div>
+          <div class="clr-col-md-12">
+            <button (click)=" addContact()" class="btn btn-sm btn-success ">
+              <clr-icon shape="plus" class=" is-solid"></clr-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- <div class="clr-col-12">
+          <button class="btn btn-success" [disabled]="!unit || !cost || !price || !productNameEN || !productNameTH"
+            (click)="save()">บันทึก</button>
+        </div> -->

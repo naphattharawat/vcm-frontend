@@ -15,7 +15,10 @@ import { ReceivesComponent } from './receives/receives.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { ReceiveNewComponent } from './receive-new/receive-new.component';
 import { DatagridModule } from './datagrid/datagrid.module';
-import { DirectivesModule } from './directives/directives.module'
+import { DirectivesModule } from './directives/directives.module';
+import { CustomersComponent } from './customers/customers.component'
+import { ReceiveService } from './receive.service';
+import { CustomerNewComponent } from './customer-new/customer-new.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,11 +36,14 @@ import { DirectivesModule } from './directives/directives.module'
     MachinesComponent,
     MachineNewComponent,
     ReceivesComponent,
-    ReceiveNewComponent
+    ReceiveNewComponent,
+    CustomersComponent,
+    CustomerNewComponent
   ],
   providers: [
     ProductsService,
-    MachinesService
+    MachinesService,
+    ReceiveService
   ]
 })
 export class AdminModule { }

@@ -69,6 +69,7 @@ export class ProductNewComponent implements OnInit {
       this.alertService.error(error);
     }
   }
+
   onFileChanged(e: any) {
     this.file = <Array<File>>e.target.files;
     // this.file.
