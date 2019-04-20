@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit {
         username: this.username,
         status: this.status
       };
-      if (this.password && this.password === '') {
+      if (this.password && this.password !== '') {
         obj.password = this.password;
       }
       await this.usersService.update(this.userId, obj);
