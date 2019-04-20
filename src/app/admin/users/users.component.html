@@ -1,0 +1,201 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
+  <!-- <a class="breadcrumb-item" href="javascript://" routerLink="/admin/labelers">รายการข้อมูลผู้ผลิต/ผู้จำหน่าย</a> -->
+  <span class="breadcrumb-item active">พนักงาน</span>
+</nav>
+
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink>ผู้ใช้งาน</button>
+    <clr-tab-content *clrIfActive>
+      <div class="clr-col-12" style="text-align: right">
+        <button class="btn btn-success" (click)="addUser()">
+          <clr-icon shape="plus"></clr-icon>
+          เพิ่มผู้ใช้
+        </button>
+      </div>
+      <clr-datagrid>
+        <clr-dg-column>ชื่อผู้ใช้งาน</clr-dg-column>
+        <clr-dg-column>ชื่อ-นามสกุล</clr-dg-column>
+        <clr-dg-column>#</clr-dg-column>
+        <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+        <clr-dg-row *ngFor="let m of users">
+          <clr-dg-cell>
+            {{m.username}}
+          </clr-dg-cell>
+          <clr-dg-cell>{{m.prename}}{{m.name}} {{m.lname}}</clr-dg-cell>
+          <clr-dg-cell>
+            <button class="btn btn-success btn-sm" (click)="edit(m)">
+              <clr-icon shape="note"></clr-icon>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="remove(m)">
+              <clr-icon shape="trash"></clr-icon>
+            </button>
+          </clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}}
+          รายการ
+          <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="users.length">
+          </clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+
+    </clr-tab-content>
+  </clr-tab>
+
+  <clr-tab>
+    <button clrTabLink>ข้อมูลช่าง</button>
+    <clr-tab-content>
+      <!-- <clr-datagrid>
+        <clr-dg-column>ชื่อเครื่องพิมพ์</clr-dg-column>
+        <clr-dg-column>part no.</clr-dg-column>
+        <clr-dg-column>จำนวนคงเหลือ</clr-dg-column>
+        <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
+        <clr-dg-row *ngFor="let m of products">
+          <clr-dg-cell>
+            <span class="p4">{{m.product_name_th}}</span>
+            <br>
+            <span class="p7">{{m.product_name_en}}</span>
+          </clr-dg-cell>
+          <clr-dg-cell>{{m.serial}}</clr-dg-cell>
+          <clr-dg-cell>{{m.qty}}</clr-dg-cell>
+        </clr-dg-row>
+
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}}
+          รายการ
+          <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="products.length">
+          </clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid> -->
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>
+
+<clr-modal [(clrModalOpen)]="modalAddUser" [clrModalClosable]="false">
+  <h3 class="modal-title">เพิ่ม</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-3">
+        คำนำหน้า
+      </div>
+      <div class="clr-col-9">
+        <select [(ngModel)]="prename">
+          <option value="">กรุณาเลือก</option>
+          <option value="นาย">นาย</option>
+          <option value="นาง">นาง</option>
+          <option value="นางสาว">นางสาว</option>
+        </select>
+      </div>
+      <div class="clr-col-3">
+        ชื่อ
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="fname" [(ngModel)]="fname">
+      </div>
+      <div class="clr-col-3">
+        นามสกุล
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="lname" [(ngModel)]="lname">
+      </div>
+      <div class="clr-col-3">
+        ชื่อผู้ใช้งาน
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="username" [(ngModel)]="username">
+      </div>
+      <div class="clr-col-3">
+        รหัสผ่าน
+      </div>
+      <div class="clr-col-9">
+        <input type="password" name="password" [(ngModel)]="password">
+      </div>
+      <div class="clr-col-3">
+        ตำแหน่ง
+      </div>
+      <div class="clr-col-9">
+        <select [(ngModel)]="status">
+          <option value="">กรุณาเลือก</option>
+          <option value="admin">admin</option>
+          <option value="user">พนักงานทั่วไป</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="save()">
+      <clr-icon shape="floppy"></clr-icon>
+      บันทึก
+    </button>
+    <button type="button" class="btn btn-danger" (click)="modalAddUser = false">
+      ปิด
+    </button>
+
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modalEditUser" [clrModalClosable]="false">
+  <h3 class="modal-title">แก้ไข</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-3">
+        คำนำหน้า
+      </div>
+      <div class="clr-col-9">
+        <select [(ngModel)]="prename">
+          <option value="">กรุณาเลือก</option>
+          <option value="นาย">นาย</option>
+          <option value="นาง">นาง</option>
+          <option value="นางสาว">นางสาว</option>
+        </select>
+      </div>
+      <div class="clr-col-3">
+        ชื่อ
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="fname" [(ngModel)]="fname">
+      </div>
+      <div class="clr-col-3">
+        นามสกุล
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="lname" [(ngModel)]="lname">
+      </div>
+      <div class="clr-col-3">
+        ชื่อผู้ใช้งาน
+      </div>
+      <div class="clr-col-9">
+        <input type="text" name="username" [(ngModel)]="username">
+      </div>
+      <div class="clr-col-3">
+        รหัสผ่าน
+      </div>
+      <div class="clr-col-9">
+        <input type="password" name="password" [(ngModel)]="password" placeholder="ระบุรหัสผ่าน ถ้าต้องการแก้ไข">
+      </div>
+      <div class="clr-col-3">
+        ตำแหน่ง
+      </div>
+      <div class="clr-col-9">
+        <select [(ngModel)]="status">
+          <option value="">กรุณาเลือก</option>
+          <option value="admin">admin</option>
+          <option value="user">พนักงานทั่วไป</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="update()">
+      <clr-icon shape="floppy"></clr-icon>
+      บันทึก
+    </button>
+    <button type="button" class="btn btn-danger" (click)="modalEditUser = false">
+      ปิด
+    </button>
+
+  </div>
+</clr-modal>

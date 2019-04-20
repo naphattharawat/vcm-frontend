@@ -1,3 +1,6 @@
+import { UsersService } from './users.service';
+import { LabelersService } from './labelers.service';
+import { CustomersService } from './customers.service';
 import { ProductsService } from './products.service';
 import { ProductsComponent } from './products/products.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -19,6 +22,9 @@ import { DirectivesModule } from './directives/directives.module';
 import { CustomersComponent } from './customers/customers.component'
 import { ReceiveService } from './receive.service';
 import { CustomerNewComponent } from './customer-new/customer-new.component';
+import { LabelersComponent } from './labelers/labelers.component';
+import { LabelerNewComponent } from './labeler-new/labeler-new.component';
+import { UsersComponent } from './users/users.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,12 +44,18 @@ import { CustomerNewComponent } from './customer-new/customer-new.component';
     ReceivesComponent,
     ReceiveNewComponent,
     CustomersComponent,
-    CustomerNewComponent
+    CustomerNewComponent,
+    LabelersComponent,
+    LabelerNewComponent,
+    UsersComponent
   ],
   providers: [
     ProductsService,
     MachinesService,
-    ReceiveService
+    ReceiveService,
+    CustomersService,
+    LabelersService,
+    UsersService
   ]
 })
 export class AdminModule { }

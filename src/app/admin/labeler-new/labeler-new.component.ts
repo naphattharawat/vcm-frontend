@@ -1,56 +1,55 @@
-import { CustomersService } from './../customers.service';
+import { LabelersService } from './../labelers.service';
 import { AlertService } from './../../alert.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 @Component({
-  selector: 'app-customer-new',
-  templateUrl: './customer-new.component.html',
+  selector: 'app-labeler-new',
+  templateUrl: './labeler-new.component.html',
   styles: []
 })
-export class CustomerNewComponent implements OnInit {
+export class LabelerNewComponent implements OnInit {
 
   perPage = 20;
-  customerId: any;
-  title = 'เพิ่มข้อมูลลูกค้า';
-  customerAddress: any;
-  customerName: any;
+  labelerId: any;
+  title = 'เพิ่มข้อมูลผู้ผลิต/ผู้จำหน่าย';
+  labelerAddress: any;
+  labelerName: any;
   telephones = [];
   contacts = [];
   faxs = [];
-  machines = [];
+  products = [];
   isUpdate: any;
   constructor(
-    private customersService: CustomersService,
+    private labelersService: LabelersService,
     private alertService: AlertService,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.route.queryParams
       .subscribe(params => {
-        this.customerId = params.customerId;
+        this.labelerId = params.labelerId;
       });
   }
 
-
-  ngOnInit() {
-    if (this.customerId) {
+  async ngOnInit() {
+    if (this.labelerId) {
       this.isUpdate = true;
-      this.title = 'แก้ไขข้อมูลลูกค้า';
-      this.getInfo();
-      this.getTel();
-      this.getFax();
-      this.getContact();
-      this.getMachine();
+      this.title = 'แก้ไขข้อมูลผู้ผลิต/ผู้จำหน่าย';
+      await this.getInfo();
+      await this.getTel();
+      await this.getFax();
+      await this.getContact();
+      await this.getProduct();
     }
   }
 
   async getInfo() {
     try {
-      const rs: any = await this.customersService.info(this.customerId);
+      const rs: any = await this.labelersService.info(this.labelerId);
       if (rs.ok) {
-        this.customerAddress = rs.rows.address;
-        this.customerName = rs.rows.name;
+        this.labelerAddress = rs.rows.address;
+        this.labelerName = rs.rows.supplier_name;
       } else {
         this.alertService.error(rs.error);
       }
@@ -61,7 +60,7 @@ export class CustomerNewComponent implements OnInit {
 
   async getTel() {
     try {
-      const rs: any = await this.customersService.getTelephone(this.customerId);
+      const rs: any = await this.labelersService.getTelephone(this.labelerId);
       if (rs.ok) {
         this.telephones = rs.rows;
       } else {
@@ -74,7 +73,7 @@ export class CustomerNewComponent implements OnInit {
 
   async getFax() {
     try {
-      const rs: any = await this.customersService.getFax(this.customerId);
+      const rs: any = await this.labelersService.getFax(this.labelerId);
       if (rs.ok) {
         this.faxs = rs.rows;
       } else {
@@ -87,7 +86,7 @@ export class CustomerNewComponent implements OnInit {
 
   async getContact() {
     try {
-      const rs: any = await this.customersService.getContact(this.customerId);
+      const rs: any = await this.labelersService.getContact(this.labelerId);
       if (rs.ok) {
         this.contacts = rs.rows;
       } else {
@@ -98,11 +97,11 @@ export class CustomerNewComponent implements OnInit {
     }
   }
 
-  async getMachine() {
+  async getProduct() {
     try {
-      const rs: any = await this.customersService.getMachine(this.customerId);
+      const rs: any = await this.labelersService.getProduct(this.labelerId);
       if (rs.ok) {
-        this.machines = rs.rows;
+        this.products = rs.rows;
       } else {
         this.alertService.error(rs.error);
       }
@@ -151,19 +150,19 @@ export class CustomerNewComponent implements OnInit {
     this.contacts[idx].contact_tel = e.target.value;
   }
 
-  async deleteMachine(machineId) {
-    try {
-      const rs: any = await this.customersService.removeMachineCustomer(machineId);
-      if (rs.ok) {
-        await this.getMachine();
-        this.alertService.success();
-      } else {
-        this.alertService.error(rs.error);
-      }
-    } catch (error) {
-      this.alertService.error(error);
-    }
-  }
+  // async deleteMachine(machineId) {
+  //   try {
+  //     const rs: any = await this.labelersService.removeMachineCustomer(machineId);
+  //     if (rs.ok) {
+  //       await this.getMachine();
+  //       this.alertService.success();
+  //     } else {
+  //       this.alertService.error(rs.error);
+  //     }
+  //   } catch (error) {
+  //     this.alertService.error(error);
+  //   }
+  // }
 
   async save() {
     try {
@@ -171,19 +170,19 @@ export class CustomerNewComponent implements OnInit {
       // update
       if (this.isUpdate) {
         const obj: any = {
-          name: this.customerName,
-          address: this.customerAddress
+          supplier_name: this.labelerName,
+          address: this.labelerAddress
         };
-        rs = await this.customersService.update(this.customerId, obj);
+        rs = await this.labelersService.update(this.labelerId, obj);
       } else {
         // save
         const obj: any = {
-          name: this.customerName,
-          address: this.customerAddress,
+          supplier_name: this.labelerName,
+          address: this.labelerAddress,
           status: 1
         };
-        rs = await this.customersService.save(obj);
-        this.customerId = rs.rows;
+        rs = await this.labelersService.save(obj);
+        this.labelerId = rs.rows;
       }
 
       if (rs.ok) {
@@ -194,7 +193,7 @@ export class CustomerNewComponent implements OnInit {
           this.alertService.success();
         } else {
           this.alertService.success();
-          this.router.navigate(['/admin/customer-new'], { queryParams: { customerId: this.customerId } });
+          this.router.navigate(['/admin/labeler-new'], { queryParams: { labelerId: this.labelerId } });
         }
       } else {
         this.alertService.serverError();
@@ -207,7 +206,7 @@ export class CustomerNewComponent implements OnInit {
 
   async saveTel() {
     try {
-      await this.customersService.saveTel(this.customerId, this.telephones);
+      await this.labelersService.saveTel(this.labelerId, this.telephones);
     } catch (error) {
       console.log(error);
       this.alertService.serverError();
@@ -215,7 +214,7 @@ export class CustomerNewComponent implements OnInit {
   }
   async saveFax() {
     try {
-      await this.customersService.saveFax(this.customerId, this.faxs);
+      await this.labelersService.saveFax(this.labelerId, this.faxs);
     } catch (error) {
       console.log(error);
       this.alertService.serverError();
@@ -223,10 +222,11 @@ export class CustomerNewComponent implements OnInit {
   }
   async saveContact() {
     try {
-      await this.customersService.saveContact(this.customerId, this.contacts);
+      await this.labelersService.saveContact(this.labelerId, this.contacts);
     } catch (error) {
       console.log(error);
       this.alertService.serverError();
     }
   }
+
 }

@@ -1,3 +1,4 @@
+import { UsersComponent } from './users/users.component';
 import { CustomersComponent } from './customers/customers.component';
 import { MachinesComponent } from './machines/machines.component';
 import { MachineNewComponent } from './machine-new/machine-new.component';
@@ -9,6 +10,8 @@ import { ProductNewComponent } from './product-new/product-new.component';
 import { ReceivesComponent } from './receives/receives.component';
 import { ReceiveNewComponent } from './receive-new/receive-new.component';
 import { CustomerNewComponent } from './customer-new/customer-new.component';
+import { LabelerNewComponent } from './labeler-new/labeler-new.component';
+import { LabelersComponent } from './labelers/labelers.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,9 @@ const routes: Routes = [
       { path: 'receive-new', component: ReceiveNewComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'customer-new', component: CustomerNewComponent },
+      { path: 'labelers', component: LabelersComponent },
+      { path: 'labeler-new', component: LabelerNewComponent },
+      { path: 'users', component: UsersComponent },
     ]
   }
 ];

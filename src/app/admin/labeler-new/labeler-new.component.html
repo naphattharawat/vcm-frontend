@@ -1,6 +1,6 @@
 <nav class="breadcrumb">
   <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
-  <a class="breadcrumb-item" href="javascript://" routerLink="/admin/customers">รายการข้อมูลลูกค้า</a>
+  <a class="breadcrumb-item" href="javascript://" routerLink="/admin/labelers">รายการข้อมูลผู้ผลิต/ผู้จำหน่าย</a>
   <span class="breadcrumb-item active">{{title}}</span>
 </nav>
 
@@ -18,16 +18,16 @@
               <div class="clr-row">
                 <div class="clr-col-6">
                   <clr-input-container>
-                    <label class="clr-col-md-4 required"> ชื่อลูกค้า</label>
-                    <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="customerName" name="customerName"
-                      style="width: 100%" placeholder="ชื่อลูกค้า" required />
+                    <label class="clr-col-md-4 required">ชื่อผู้ผลิต/ผู้จำหน่าย</label>
+                    <input class="clr-col-md-7" clrInput type="text" [(ngModel)]="labelerName" name="labelerName"
+                      style="width: 100%" placeholder="ชื่อผู้ผลิต/ผู้จำหน่าย" required />
                   </clr-input-container>
                 </div>
                 <div class="clr-col-12">
                   <clr-input-container>
-                    <label class="clr-col-md-2">ที่อยู่ลูกค้า</label>
-                    <input class="clr-col-md-9" clrInput type="text" [(ngModel)]="customerAddress"
-                      name="customerAddress" style="width: 100%" placeholder="ที่อยู่ลูกค้า" />
+                    <label class="clr-col-md-2">ที่อยู่</label>
+                    <input class="clr-col-md-9" clrInput type="text" [(ngModel)]="labelerAddress" name="labelerAddress"
+                      style="width: 100%" placeholder="ที่อยู่ลูกค้า" />
                   </clr-input-container>
                 </div>
               </div>
@@ -112,49 +112,37 @@
         </div>
       </div>
 
-      <button class="btn btn-sm btn-success " (click)="save()" [disabled]="!customerName">
+      <button class="btn btn-sm btn-success " (click)="save()" [disabled]="!labelerName">
         <clr-icon shape="floppy"></clr-icon>บันทึก
       </button>
-      <button class="btn btn-sm btn-danger " [routerLink]="['/admin/customers']">
+      <button class="btn btn-sm btn-danger " [routerLink]="['/admin/labelers']">
         <clr-icon shape="undo"></clr-icon>ยกเลิก
       </button>
     </clr-tab-content>
   </clr-tab>
 
   <clr-tab>
-    <button clrTabLink>ข้อมูลเครื่องพิมพ์</button>
+    <button clrTabLink>ข้อมูลสินค้า</button>
     <clr-tab-content>
       <clr-datagrid>
-        <clr-dg-column [clrDgField]="'machine_name_th'">ชื่อเครื่องพิมพ์</clr-dg-column>
-        <clr-dg-column>รุ่น</clr-dg-column>
-        <clr-dg-column>หมายเลขเครื่อง</clr-dg-column>
-        <clr-dg-column>
-          #
-        </clr-dg-column>
+        <clr-dg-column>ชื่อเครื่องพิมพ์</clr-dg-column>
+        <clr-dg-column>part no.</clr-dg-column>
+        <clr-dg-column>จำนวนคงเหลือ</clr-dg-column>
         <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
-        <clr-dg-row *clrDgItems="let m of machines">
+        <clr-dg-row *ngFor="let m of products">
           <clr-dg-cell>
-            <span class="p4">{{m.machine_name_th}}</span>
+            <span class="p4">{{m.product_name_th}}</span>
             <br>
-            <span class="p7">{{m.machine_name_en}}</span>
+            <span class="p7">{{m.product_name_en}}</span>
           </clr-dg-cell>
-          <clr-dg-cell>{{m.model}}</clr-dg-cell>
           <clr-dg-cell>{{m.serial}}</clr-dg-cell>
-          <clr-dg-cell>
-            <button class="btn btn-sm btn-success " [routerLink]="['/admin/customer-new']"
-              [queryParams]="{customerId: m.customer_id}" routerLinkActive="router-link-active">
-              <clr-icon shape="eye"></clr-icon>
-            </button>
-            <button class="btn btn-sm btn-danger " (click)="deleteMachine(m.machine_id)">
-              <clr-icon shape="trash"></clr-icon>
-            </button>
-          </clr-dg-cell>
+          <clr-dg-cell>{{m.qty}}</clr-dg-cell>
         </clr-dg-row>
 
         <clr-dg-footer>
           {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}}
           รายการ
-          <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="machines.length">
+          <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="products.length">
           </clr-dg-pagination>
         </clr-dg-footer>
       </clr-datagrid>
@@ -164,6 +152,6 @@
 
 
 <!-- <div class="clr-col-12">
-          <button class="btn btn-success" [disabled]="!unit || !cost || !price || !productNameEN || !productNameTH"
-            (click)="save()">บันทึก</button>
-        </div> -->
+            <button class="btn btn-success" [disabled]="!unit || !cost || !price || !productNameEN || !productNameTH"
+              (click)="save()">บันทึก</button>
+          </div> -->

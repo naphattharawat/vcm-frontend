@@ -1,10 +1,9 @@
 <nav class="breadcrumb">
   <a class="breadcrumb-item" href="javascript://" routerLink="/admin">หน้าหลัก</a>
-  <span class="breadcrumb-item active">รายการข้อมูลลูกค้า</span>
+  <span class="breadcrumb-item active">รายการข้อมูลผู้ผลิต/ผู้จำหน่าย</span>
 </nav>
 <div class="clr-row">
   <div class="clr-col-1">
-    <!-- <label for="">ค้นหา</label> -->
     ค้นหา
   </div>
   <div class="clr-col-3">
@@ -12,29 +11,29 @@
       id="query" [(ngModel)]="query">
   </div>
   <div class="clr-col-8" style="text-align: right">
-    <button class="btn btn-success" routerLink="/admin/customer-new">
+    <button class="btn btn-success" routerLink="/admin/labeler-new">
       <clr-icon shape="plus"></clr-icon>
-      เพิ่มลูกค้า
+      เพิ่มผู้ผลิต/ผู้จำหน่าย
     </button>
   </div>
 </div>
 
 <clr-datagrid>
-  <clr-dg-column [clrDgField]="'name'">ชื่อลูกค้า</clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'">ชื่อผู้ผลิต/ผู้จำหน่าย</clr-dg-column>
   <clr-dg-column>ที่อยู่</clr-dg-column>
   <clr-dg-column>
     #
   </clr-dg-column>
   <clr-dg-placeholder>ไม่พบข้อมูล!</clr-dg-placeholder>
-  <clr-dg-row *clrDgItems="let c of customers">
-    <clr-dg-cell>{{c.name}}</clr-dg-cell>
+  <clr-dg-row *clrDgItems="let c of labelers">
+    <clr-dg-cell>{{c.supplier_name}}</clr-dg-cell>
     <clr-dg-cell>{{c.address}}</clr-dg-cell>
     <clr-dg-cell>
-      <button class="btn btn-sm btn-success " [routerLink]="['/admin/customer-new']"
-        [queryParams]="{customerId: c.customer_id}" routerLinkActive="router-link-active">
+      <button class="btn btn-sm btn-success " [routerLink]="['/admin/labeler-new']"
+        [queryParams]="{labelerId: c.supplier_id}" routerLinkActive="router-link-active">
         <clr-icon shape="note"></clr-icon>
       </button>
-      <button class="btn btn-sm btn-danger " (click)="delete(c.customer_id)">
+      <button class="btn btn-sm btn-danger " (click)="delete(c.supplier_id)">
         <clr-icon shape="trash"></clr-icon>
       </button>
     </clr-dg-cell>
@@ -42,6 +41,6 @@
 
   <clr-dg-footer>
     {{pagination.firstItem + 1}} - {{pagination.lastItem + 1 | number}} จาก {{pagination.totalItems | number}} รายการ
-    <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="customers.length"></clr-dg-pagination>
+    <clr-dg-pagination #pagination [clrDgPageSize]="perPage" [clrDgTotalItems]="labelers.length"></clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
